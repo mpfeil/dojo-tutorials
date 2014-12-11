@@ -1,0 +1,137 @@
+<!--
+  All code examples for tutorial:
+  http://dojotoolkit.org/documentation/tutorials/1.10/events/
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Events with Dojo</title>
+    <script src="../libs/dojo/dojo.js" data-dojo-config="async: true"></script>
+    <script>
+      // Sample 1 - DOM Events
+      require(["dojo/on", "dojo/dom", "dojo/dom-style", "dojo/mouse", "dojo/domReady!"],
+        function(on, dom, domStyle, mouse) {
+          var myButton = dom.byId("myButton"),
+              myDiv = dom.byId("myDiv");
+
+          var handle = on(myButton, "click", function(evt){
+            // Remove this event using the handle
+            handle.remove();
+
+            // Do other stuff here that you only want to happen one time
+            alert("This alert will only happen one time.");
+          });
+
+          on(myButton, "click", function(evt){
+            domStyle.set(myDiv, "backgroundColor", "blue");
+          });
+          on(myDiv, mouse.enter, function(evt){
+            domStyle.set(myDiv, "backgroundColor", "red");
+          });
+          on(myDiv, mouse.leave, function(evt){
+            domStyle.set(myDiv, "backgroundColor", "");
+          });
+      });
+
+      require(["dojo/on", "dojo/dom", "dojo/_base/lang", "dojo/domReady!"],
+        function(on, dom, lang) {
+          var myScopedButton1 = dom.byId("myScopedButton1"),
+              myScopedButton2 = dom.byId("myScopedButton2"),
+              myObject = {
+                id: "myObject",
+                onClick: function(evt){
+                  alert("The scope of this handler is " + this.id);
+                }
+              };
+
+          // This will alert "myScopedButton1"
+          on(myScopedButton1, "click", myObject.onClick);
+          // This will alert "myObject" rather than "myScopedButton2"
+          on(myScopedButton2, "click", lang.hitch(myObject, "onClick"));
+      });
+
+      // Sample 2 - NodeList events
+      require(["dojo/query", "dojo/_base/lang", "dojo/domReady!"],
+        function(query, lang) {
+          var myObject = {
+            id: "myObject",
+            onClick: function(evt){
+              alert("The scope of this handler is " + this.id);
+            }
+          };
+          query(".clickMe").on("click", myObject.onClick);
+          query(".clickMeAlso").on("click", lang.hitch(myObject, "onClick"));
+      });
+
+      // Sample 3 - Event Delegation
+      require(["dojo/on", "dojo/dom", "dojo/query", "dojo/domReady!"],
+        function(on, dom){
+          var myObject = {
+            id: "myObject",
+            onClick: function(evt){
+              alert("The scope of this handler is " + this.id);
+            }
+          };
+          var div = dom.byId("parentDiv");
+          on(div, ".clickMe:click", myObject.onClick);
+      });
+
+      // Sample 4 - Publish / Subscribe
+      require(["dojo/on", "dojo/topic", "dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
+        function(on, topic, domConstruct, dom) {
+          var alertButton = dom.byId("alertButton"),
+              createAlert = dom.byId("createAlert");
+
+          on(alertButton, "click", function() {
+            // When this button is clicked,
+            // publish to the "alertUser" topic
+            topic.publish("alertUser", "I am alerting you.");
+          });
+
+          on(createAlert, "click", function(evt){
+            // Create another button
+            var anotherButton = domConstruct.create("button", {
+              innerHTML: "Another alert button"
+            }, createAlert, "after");
+
+            // When the other button is clicked,
+            // publish to the "alertUser" topic
+            on(anotherButton, "click", function(evt){
+              topic.publish("alertUser", "I am also alerting you.");
+            });
+          });
+
+          // Register the alerting routine with the "alertUser" topic.
+          topic.subscribe("alertUser", function(text){
+            alert(text);
+          });
+      });
+    </script>
+  </head>
+  <body>
+    <!-- HTML for Sample 1 -->
+    <button id="myButton">Click me!</button>
+    <div id="myDiv">Hover over me!</div>
+    <button id="myScopedButton1">Click me to see the scope of my handler ("myScopedButton1")</button>
+    <button id="myScopedButton2">Click me to see the scope of my handler ("myObject")</button>
+    <br>
+    <!-- HTML for Sample 2 -->
+    <button id="button1" class="clickMe">Click me</button>
+    <button id="button2" class="clickMeAlso">Click me also</button>
+    <button id="button3" class="clickMe">Click me too</button>
+    <button id="button4" class="clickMeAlso">Please click me</button>
+    <br>
+    <!-- HTML for Sample 3 -->
+    <div id="parentDiv">
+      <button id="button1" class="clickMe">Click me</button>
+      <button id="button2" class="clickMe">Click me also</button>
+      <button id="button3" class="clickMe">Click me too</button>
+      <button id="button4" class="clickMe">Please click me</button>
+    </div>
+    <br>
+    <!-- HTML for Sample 4 -->
+    <button id="alertButton">Alert the user</button>
+    <button id="createAlert">Create another alert button</button>
+  </body>
+</html>
