@@ -1,0 +1,147 @@
+<!--
+  All code examples for tutorial:
+  http://dojotoolkit.org/documentation/tutorials/1.10/using_query/
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Demo: DOM Functions</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="../libs/dojo/dojo.js" data-dojo-config="async: true"></script>
+    <script>
+      // Sample 1 - 3
+      // require(["dojo/query", "dojo/dom", "dojo/domReady!"], function (query, dom) {
+      //     // Sample 1 - Queries
+      //     // retrieve an array of nodes with the ID "list"
+      //     var list = query("#list")[0];
+
+      //     // retrieve an array of nodes with the class name "odd"
+      //     var odds = query(".odd");
+
+      //     // Sample 2 - Restricting your query
+      //     // retrieve an array of nodes with the class name "odd"
+      //     // from the first list using a selector
+      //     var odds1 = query("#list .odd");
+
+      //     // retrieve an array of nodes with the class name "odd"
+      //     // from the first list using a DOM node
+      //     var odds2 = query(".odd", dom.byId("list"));
+
+      //     // Sample 3 - More advanced selections
+      //     var oddA = query("a.odd");
+
+      //     // Retrieve an array of any a element that has an
+      //     // li as its ancestor.
+      //     var allA = query("li a");
+      //     // Retrieve an array of any a element that has an
+      //     // li as its direct parent.
+      //     var someA = query("li > a");
+      // });
+
+      // Sample 4 - NodeList
+      // Wait for the DOM to be ready before working with it
+      // require(["dojo/query", "dojo/dom-class", "dojo/on", "dojo/dom", "dojo/NodeList-dom", "dojo/domReady!"],
+      //   function(query, domClass, on, dom) {
+
+      //     function oddForEach(){
+      //       query(".odd").forEach(function(node){
+      //         // For each node with a class of "odd",
+      //         // remove the class "blue" and add the class "red"
+      //         domClass.remove(node, "blue");
+      //         domClass.add(node, "red");
+      //       });
+      //     }
+
+      //     function oddAddBlue(){
+      //       // For each node with a class of "odd",
+      //       // remove the class "red" and add the class "blue"
+      //       query(".odd").removeClass("red").addClass("blue");
+      //     }
+
+      //     function evenAddBlue(){
+      //       // For each node with a class of "even",
+      //       // add the class "blue"
+      //       query(".even").addClass("blue");
+      //     }
+
+      //     function evenStyle(){
+      //       // For each node with a class of "even",
+      //       // Set its color CSS style to "white" and add a class of "italic"
+      //       query(".even").style("color", "white").addClass("italic");
+      //     }
+
+      //     // Connect the buttons
+      //     on(dom.byId("oddForEach"), "click", oddForEach);
+      //     on(dom.byId("evenAddBlue"), "click", evenAddBlue);
+      //     on(dom.byId("oddAddBlue"), "click", oddAddBlue);
+      //     on(dom.byId("evenStyle"), "click", evenStyle);
+
+      // });
+
+      // Sample 5 - Events
+      // Wait for the DOM to be ready before working with it
+      require(["dojo/query", "dojo/domReady!"], function(query) {
+        query(".hookUp").on("click", function(){
+          alert("This button is hooked up!");
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <!-- HTML for Sample 1 - 3 -->
+    <!-- <ul id="list">
+      <li class="odd">
+        <div class="bold">
+          <a class="odd">Odd</a>
+        </div>
+      </li>
+      <li class="even">
+        <div class="italic">
+          <a class="even">Even</a>
+        </div>
+      </li>
+      <li class="odd">
+        <a class="odd">Odd</a>
+      </li>
+      <li class="even">
+        <div class="bold">
+          <a class="even">Even</a>
+        </div>
+      </li>
+      <li class="odd">
+        <div class="italic">
+          <a class="odd">Odd</a>
+        </div>
+      </li>
+      <li class="even">
+        <a class="even">Even</a>
+      </li>
+    </ul>
+
+    <ul id="list2">
+      <li class="odd">Odd</li>
+    </ul> -->
+
+    <!-- HTML for Sample 4  -->
+    <!-- <div id="list">
+      <div class="odd">One</div>
+      <div class="even">Two</div>
+      <div class="odd">Three</div>
+      <div class="even">Four</div>
+      <div class="odd">Five</div>
+      <div class="even">Six</div>
+    </div>
+
+    <button id="oddForEach">query(".odd").forEach(...)</button><br />
+    <button id="evenAddBlue">query(".even").addClass("blue")</button><br />
+    <button id="oddAddBlue">query(".odd").removeClass("red").addClass("blue")</button><br />
+    <button id="evenStyle">query(".even").style("color", "white").addClass("italic")</button><br /> -->
+
+    <!-- HTML for Sample 5 -->
+    <button class="hookUp demoBtn">Click Me!</button>
+    <button class="hookUp demoBtn">Click Me!</button>
+    <button class="hookUp demoBtn">Click Me!</button>
+    <button class="hookUp demoBtn">Click Me!</button>
+  </body>
+</html>
