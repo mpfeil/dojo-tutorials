@@ -1,6 +1,6 @@
 # Dojo Tutorials
 
-Collection of all code samples you can find at [Dojo Documentation Tutorials](http://dojotoolkit.org/documentation/)
+Collection of all code samples that you can find at [Dojo Documentation Tutorials](http://dojotoolkit.org/documentation/)
 
 ## Beginner
 * [Hello Dojo](http://dojotoolkit.org/documentation/tutorials/1.10/hello_dojo/)
